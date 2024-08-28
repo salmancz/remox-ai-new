@@ -33,18 +33,21 @@ def index():
 
 @app.route('/capture', methods=['POST'])
 def capture_image():
-    # Open the camera and capture an image
-    cap = cv2.VideoCapture()
-    ret, frame = cap.read()
-    cap.release()
+    if 'image' not in request.files:
+        return jsonify({"error": "No image part in the request"}), 400
     
-    if ret:
-        # Convert the captured image to RGB format for display
-        img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    image_file = request.files['image']
+    
+    try:
+        # Open the image file
+        image = Image.open(image_file)
         
-        # Convert the image to base64 format
-        base64_image = encode_image(img)
-
+        # Convert the image to an OpenCV format
+        frame = np.array(image)
+        
+        # Convert the captured image to base64 format
+        base64_image = encode_image(frame)
+        
         # Prepare the API request payload
         headers = {
             "Content-Type": "application/json",
@@ -109,6 +112,7 @@ def capture_image():
                 return jsonify({"error": "No choices found in the response."})
         else:
             return jsonify({"error": f"Error: {response.status_code} - {response.text}"})
-    else:
-        return jsonify({"error": "Failed to capture image. Please try again." })
+    
+    except Exception as e:
+        return jsonify({"error": f"Failed to process the image. Error: {str(e)}"})
 
