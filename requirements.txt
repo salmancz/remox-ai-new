@@ -82,3 +82,4 @@ websockets==13.0
 yarl==1.9.4
 distutils
 distutils-pytest
+Flask
