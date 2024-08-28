@@ -104,7 +104,6 @@ if st.button("Capture Image"):
                 text= content,
                 voice="Charlie",
                 model="eleven_multilingual_v2")
-                
                 play(audio)
 
             else:

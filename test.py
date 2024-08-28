@@ -54,7 +54,7 @@ stt = time.time()
 
 audio = client1.generate(
   text= result,
-  voice="Charlie",
+  voice="Nicole",
   model="eleven_multilingual_v2"
 )
 
