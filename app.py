@@ -34,7 +34,7 @@ def index():
 @app.route('/capture', methods=['POST'])
 def capture_image():
     # Open the camera and capture an image
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture()
     ret, frame = cap.read()
     cap.release()
     
@@ -110,5 +110,5 @@ def capture_image():
         else:
             return jsonify({"error": f"Error: {response.status_code} - {response.text}"})
     else:
-        return jsonify({"error": "Failed to capture image. Please try again."})
+        return jsonify({"error": "Failed to capture image. Please try again." })
 
