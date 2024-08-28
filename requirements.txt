@@ -81,3 +81,4 @@ watchdog==4.0.2
 websockets==13.0
 yarl==1.9.4
 distutils
+distutils-pytest
